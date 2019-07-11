@@ -96,4 +96,55 @@ router.delete('/playlist/:id', (req, res) => {
     })
 });
 
+//Supprimer une chanson
+router.delete('/tracks/:id', (req, res) => {
+    const id = req.params.id;
+    db.query('DELETE FROM tracks WHERE id = ?', id, err => {
+        if(err){
+            console.log(err)
+            res.status(500).send('Erreur lors de la suppression');
+        } else {
+            res.status(204).send();
+        }
+    })
+});
+
+//Je veux pouvoir modifier une playlist
+router.put('/playlist/:id', (req, res) => {
+    const id = req.params.id;
+    const formData = req.body;
+    db.query('UPDATE playlists SET ? WHERE id = ?', [formData, id], err => {
+        if (err) {
+            res.status(500).send("Erreur lors de la modification d'une playlist");
+        } else {
+        db.query('SELECT * FROM playlists WHERE id = ?', id, (err, results) => {
+            if (err) {
+                res.status(500).send();
+            } else {
+            res.status(200).send(results[0]);
+                }
+            })
+        }
+    });
+});
+
+//Je veux pouvoir modifier une chanson
+router.put('/tracks/:id', (req, res) => {
+    const id = req.params.id;
+    const formData = req.body;
+    db.query('UPDATE tracks SET ? WHERE id = ?', [formData, id], err => {
+        if (err) {
+            res.status(500).send("Erreur lors de la modification d'une chanson");
+        } else {
+        db.query('SELECT * FROM tracks WHERE id = ?', id, (err, results) => {
+            if (err) {
+                res.status(500).send();
+            } else {
+            res.status(200).send(results[0]);
+                }
+            })
+        }
+    });
+});
+
 module.exports = router;
