@@ -150,7 +150,6 @@ router.put('/tracks/:id', (req, res) => {
 //Consulter toutes les playlists
 router.get('/playlists' , (req, res) => {
     db.query('SELECT * FROM playlists', (err, results) => {
-        console.log(err)
         if(err){
             res.status(404).send('Erreur lors de la récupération des playlists');
         } else {
