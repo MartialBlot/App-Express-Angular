@@ -151,7 +151,7 @@ router.put('/tracks/:id', (req, res) => {
 router.get('/playlists' , (req, res) => {
     db.query('SELECT * FROM playlists', (err, results) => {
         if(err){
-            res.status(404).send('Erreur lors de la récupération des playlists');
+            res.status(500).send('Erreur lors de la récupération des playlists');
         } else {
             res.status(200).json(results);
         }
