@@ -11,7 +11,7 @@ router.use(bodyParser.urlencoded({
 }));
 
 //Créer une playlist
-router.post('/playlist', (req, res) =>{
+router.post('/playlists', (req, res) =>{
     const formData = req.body;
     db.query("INSERT INTO playlists SET ?", formData, (err, results) => {
         if(err){
@@ -34,7 +34,7 @@ router.post('/playlist', (req, res) =>{
 });
 
 //Consulter une playlist par id
-router.get('/playlist/:id', (req, res) =>{
+router.get('/playlists/:id', (req, res) =>{
     const id = req.params.id;
     db.query('SELECT * FROM playlists WHERE id = ?', id, (err, results) => {
         if(err){
@@ -70,7 +70,7 @@ router.post('/tracks', (req, res) => {
 });
 
 //Lister les morceaux d'une playlist
-router.get('/tracks/playlist/:id', (req, res) => {
+router.get('/tracks/playlists/:id', (req, res) => {
     const id = req.params.id;
     db.query('SELECT * FROM tracks WHERE playlist_id = ?', id, (err, results) => {
         if(err){
@@ -84,7 +84,7 @@ router.get('/tracks/playlist/:id', (req, res) => {
 });
 
 //Supprimer une playlist
-router.delete('/playlist/:id', (req, res) => {
+router.delete('/playlists/:id', (req, res) => {
     const id = req.params.id;
     db.query('DELETE FROM playlists WHERE id = ?', id, err => {
         if(err){
@@ -110,7 +110,7 @@ router.delete('/tracks/:id', (req, res) => {
 });
 
 //Je veux pouvoir modifier une playlist
-router.put('/playlist/:id', (req, res) => {
+router.put('/playlists/:id', (req, res) => {
     const id = req.params.id;
     const formData = req.body;
     db.query('UPDATE playlists SET ? WHERE id = ?', [formData, id], err => {
