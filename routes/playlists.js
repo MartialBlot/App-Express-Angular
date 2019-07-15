@@ -70,7 +70,7 @@ router.post('/tracks', (req, res) => {
 });
 
 //Lister les morceaux d'une playlist
-router.get('/tracks/playlists/:id', (req, res) => {
+router.get('/playlists/:id/tracks', (req, res) => {
     const id = req.params.id;
     db.query('SELECT * FROM tracks WHERE playlist_id = ?', id, (err, results) => {
         if(err){
